@@ -1,3 +1,7 @@
 body {
     padding-top: 65px;
 }
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
