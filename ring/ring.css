@@ -1,0 +1,13 @@
+#output {
+    width: 30%;
+    float: left;
+}
+
+#input {
+    width: 55%;
+}
+
+#eval:focus {
+    outline: none;
+}
+
