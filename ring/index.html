@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="../jquery/jquery-1.11.2.min.js"></script>
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" type="text/css" href="../home.css">
     <link rel="stylesheet" type="text/css" href="./ring.css">
@@ -13,14 +14,7 @@
     <title>Ring</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -54,32 +48,33 @@
         <div class="col-xs-5">
           <div id="input">
             <h3>Input</h3>
-            <form role="form">
-              <div class="form-group" >
-                <input type="text" class="form-control" id="input">
-                <br/>
-                <button type="button" class="btn btn-sm" id="go">Go!</button>
-              </div>
-            </form>
+<textarea id="interpreter" class="form-control" rows="8">
+</textarea>
+            <button type="button" class="btn btn-sm" id="go">Go!</button>
           </div>
           <div id="output">
             <h3>Output</h3>
-            <pre id="out"></pre>
+            <pre id="out" style="width:200px;"></pre>
           </div>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-2">
           <br/>
-          <img src="grammar.png" style="width:550px;height:300px;">
+          <img src="grammar.png" style="width:550px;height:400px;">
         </div>
       </div>
     </div>
 
+    <script>
+    $("#go").click(function () {
+        var program = $("#interpreter").val();
+        $("#out").html("The backend server doesn't work yet sorry!");
+    });
+
+    </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../dist/js/bootstrap.min.js"></script>
   </body>
 </html>
