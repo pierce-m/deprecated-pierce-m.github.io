@@ -45,6 +45,7 @@
 
     <div class="container">
       <div class="row">
+
         <div class="col-xs-5">
           <div id="input">
             <h3>Input</h3>
@@ -65,9 +66,15 @@
     </div>
 
     <script>
+    var request = new XMLHttpRequest();
+    request.onload = function () {
+        $("#out").html("Baaahhh");
+    };
+
     $("#go").click(function () {
-        var program = $("#interpreter").val();
-        $("#out").html("The backend server doesn't work yet sorry!");
+        var program = $("#interpreter").val().replace(/\ /g, '') + "\n";
+        request.open("GET", "http://localhost:9090/ring/" + program, true);
+        request.send();
     });
 
     </script>
