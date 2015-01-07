@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="../home.css">
 
-    <title>Pierce McEntagart</title>
+    <title>Trees</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
       <div class="container">
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="../">Home</a></li>
+            <li><a href="../">Home</a></li>
             <li><a href="../ring">Ring</a></li>
             <li class="active"><a href=".">Trees</a></li>
             <li><a href="../about">About</a></li>
@@ -38,11 +38,64 @@
       </div>
     </nav>
 
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-3">
+          <h3 class="lead">Tree types</h3>
+          <div class="btn-group" role="group" aria-label="...">
+            <button id="rb" type="button" class="btn btn-default">Red-Black</button>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <h3 class="lead">Operations</h3>
+                <div class="form-group">
+                  <input id="ins-text" class="form-control" placeholder="Insert">
+                </div>
+                <div class="form-group">
+                  <input id="del-text" class="form-control" placeholder="Delete">
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-9">
+          <div class="viewport" id="canvas"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="trees/rb.js"></script>
+    <script>
+      var tree;
+      var h = 500, w = 690;
+
+      var svg = d3.select("#canvas")
+              .append("svg")
+              .attr("width", w)
+              .attr("height", h);
+      
+      var vistree = d3.layout.tree();
+
+      $("#rb").click(function () {
+          tree = new RedBlackTree ();
+      });
+
+      $("#ins-text").keydown(function (event) {
+          if (event.which == 13) {
+              svg.selectAll("circle")
+                 .data(vistree.nodes(tree.insert($("#ins-text").val())))
+                 .enter().append("circle")
+                         .attr("cx", w / 2)
+                         .attr("cy", 20)
+                         .attr("r", 20);
+          }
+      });
+
+    </script>
   </body>
 </html>
