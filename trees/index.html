@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" type="text/css" href="../home.css">
-    <link rel="stylesheet" type="text/css" href="trees/rb.css">
+    <link rel="stylesheet" type="text/css" href="trees/node.css">
 
     <title>Trees</title>
 
@@ -44,16 +44,17 @@
         <div class="col-xs-3">
           <h3 class="lead">Tree types</h3>
           <div class="btn-group" role="group" aria-label="...">
-            <button id="rb" type="button" class="btn btn-default">Red-Black</button>
-          </div>
-          <div class="btn-group" role="group" aria-label="...">
             <button id="bst" type="button" class="btn btn-default">Binary Search</button>
           </div>
+          <!--div class="btn-group" role="group" aria-label="...">
+            <button id="rb" type="button" class="btn btn-default">Red-Black</button>
+          </div-->
           <div class="row">
             <div class="col-xs-6">
               <h3 class="lead">Operations</h3>
                 <div class="form-group">
                   <input id="ins-text" class="form-control" placeholder="Insert">
+                  <p id="ins-err"></p>
                 </div>
                 <div class="form-group">
                   <input id="del-text" class="form-control" placeholder="Delete">
@@ -62,7 +63,15 @@
           </div>
         </div>
         <div class="col-xs-9">
+          <p class="lead"></p>
           <div class="viewport" id="canvas"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+          <div>
+            <p id="err-msgs"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -73,29 +82,40 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="trees/rb.js"></script>
     <script src="trees/bst.js"></script>
+    <script src="trees/visUtils.js"></script>
     <script src="trees/main.js"></script>
     <script>
       var tree;
 
       $("#rb").click(function () {
-        tree = makeTree("rb", 690, 500, "#canvas");
+        tree = makeTree("rb", 500, 600, "#canvas");
       });
 
       $("#bst").click(function () {
-        tree = makeTree("bst", 690, 500, "#canvas");
+        tree = makeTree("bst", 500, 600, "#canvas");
       });
 
       $("#ins-text").keydown(function (event) {
         if (event.which == 13) {
-          tree.insert($("#ins-text").val());
+          if (tree) {
+            tree.insert(parseInt($("#ins-text").val()));
+            $("#ins-text").val("");
+            $("#err-msgs").html("");
+          } else {
+            $("#err-msgs").html("Please select a tree type.");
+          }
         }
       });
 
       $("#del-text").keydown(function (event) {
         if (event.which == 13) {
-          tree.del($("#del-text").val());
+          if (tree) {
+            tree.del(parseInt($("#del-text").val()));
+            $("#del-text").val("");
+          } else {
+            $("#err-msgs").html("Please select a tree type.");
+          }
         }
       });
 
