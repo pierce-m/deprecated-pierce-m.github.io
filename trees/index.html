@@ -39,8 +39,9 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
+      <p class="lead">This grew out of a desire to visualize tree based datastructures and their operations. Right now only BSTs work, but more are on the way. The result is a library for visualizing trees written in JavaScript and d3.js. <a href="https://github.com/pierce-m/trees">Here's the code.</a></p>
         <div class="col-xs-3">
           <h3 class="lead">Tree types</h3>
           <div class="btn-group" role="group" aria-label="...">
@@ -62,8 +63,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-9">
-          <p class="lead"></p>
+        <div class="col-xs-offset-3">
           <div class="viewport" id="canvas"></div>
         </div>
       </div>
@@ -88,12 +88,8 @@
     <script>
       var tree;
 
-      $("#rb").click(function () {
-        tree = makeTree("rb", 500, 600, "#canvas");
-      });
-
       $("#bst").click(function () {
-        tree = makeTree("bst", 500, 600, "#canvas");
+        tree = makeTree("bst", 700, 600, "#canvas");
       });
 
       $("#ins-text").keydown(function (event) {
