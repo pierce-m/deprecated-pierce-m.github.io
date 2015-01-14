@@ -1,17 +1,14 @@
-/* Assigns a height to each node indicating the height of its
- * tallest subtree plus itself */
 function height (node) {
-  if (node == null) {
+  if (node == null || node.nil) {
     return 0;
   } else {
-    node.height = 1 + Math.max(this.height(node.leftChild), this.height(node.rightChild));
+    node.height = 1 + Math.max(height(node.leftChild), height(node.rightChild));
     return node.height;
   }
 }
 
-/* Stores visual information in each node for d3 */
 function visuals (node) {
-  if (node.parent) {
+  if (node.parent && !node.parent.nil) {
     node.cy = node.parent.cy + 55
     if (node.isLeftChild) {
       node.cx = node.parent.cx - Math.pow(2, node.height) * 10
@@ -22,41 +19,49 @@ function visuals (node) {
     node.cx = 0;
     node.cy = 0;
   }
-  if (node.leftChild) {
+  if (node.leftChild && !node.leftChild.nil) {
     visuals(node.leftChild);
   }
-  if (node.rightChild) {
+  if (node.rightChild && !node.rightChild.nil) {
     visuals(node.rightChild);
   }
 }
 
-/* Returns an array containing a topoligical sorting of the
- * BST and a list of parent-child pairs */
 function nodesAndLinks (node) {
-  var q = [node];
-  var l = [node];
+  var n = new visNode(node);
+  var q = [n];
+  var l = [n];
   var pairs = []
   while (q.length > 0) {
-    var n = q.shift();
-    if (n.leftChild) {
-      l.push(n.leftChild);
-      q.push(n.leftChild);
-      pairs.push({parent:n, child:n.leftChild});
+    n = q.shift();
+    if (n.leftChild && !n.leftChild.nil) {
+      var vcl = new visNode(n.leftChild);
+      l.push(vcl);
+      q.push(vcl);
+      pairs.push({parent:n, child:vcl});
     }
-    if (n.rightChild) {
-      l.push(n.rightChild);
-      q.push(n.rightChild);
-      pairs.push({parent:n, child:n.rightChild});
+    if (n.rightChild && !n.rightChild.nil) {
+      var vcr = new visNode(n.rightChild);
+      l.push(vcr);
+      q.push(vcr);
+      pairs.push({parent:n, child:vcr});
     }
   }
-  console.log(l);
   return {nodes:l, links:pairs};
 }
 
-/* Assigns height and visual info for a tree, returns an object containing
- * the nodes and links of the tree. */
 function view (tree) {
   height(tree.root);
   visuals(tree.root)
   return nodesAndLinks(tree.root);
+}
+
+function visNode (node) {
+  this.cx = node.cx;
+  this.cy = node.cy;
+  this.leftChild = node.leftChild;
+  this.rightChild = node.rightChild;
+  this.parent = node.parent;
+  this.color = node.color;
+  this.key = node.key;
 }
