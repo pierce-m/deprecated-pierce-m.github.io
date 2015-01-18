@@ -43,7 +43,7 @@
         <p class="lead">This grew out of a desire to learn more complicated tree based datastructures by visualizing them. The result is a library for visualizing various flavors of the binary search tree written in JavaScript and d3.js. I will be adding to this as time permits. <a href="https://github.com/pierce-m/trees">Here's the code.</a></p>
       </div>
       <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-2">
           <h3 class="lead">Types</h3>
           <div class="btn-group-vertical" role="group" aria-label="...">
             <button id="bst" type="button" class="btn btn-default">Binary Search</button>
@@ -51,21 +51,18 @@
           </div>
           <div class="btn-group" role="group" aria-label="...">
           </div>
-          <div class="row">
-            <div class="col-xs-6">
-              <h3 class="lead">Operations</h3>
-                <div class="form-group">
-                  <input id="ins-text" class="form-control" placeholder="Insert">
-                  <p id="ins-err"></p>
-                </div>
-                <div class="form-group">
-                  <input id="del-text" class="form-control" placeholder="Delete">
-                </div>
-            </div>
+          <h3 class="lead">Operations</h3>
+          <div class="form-group">
+            <input id="ins-text" class="form-control" placeholder="Insert">
+            <p id="ins-err"></p>
+          </div>
+          <div class="form-group">
+            <input id="del-text" class="form-control" placeholder="Delete">
           </div>
         </div>
-        <div class="col-xs-offset-3">
-          <div class="viewport" id="canvas"></div>
+        <div class="col-xs-10">
+          <div class="well" id="canvas">
+          </div>
         </div>
       </div>
       <div class="row">
@@ -90,13 +87,19 @@
     <script src="trees/main.js"></script>
     <script>
       var tree;
+      var w = $("#canvas").width(); 
+      var h = 5 * VERT_SPACE + VERT_OFFSET
+
+      $(window).load(function () {
+          $("#canvas").attr("style", "height: " + h + "px;");
+      });
 
       $("#rb").click(function () {
-        tree = makeTree("rb", 700, 600, "#canvas");
+        tree = makeTree("rb", w, h, "#canvas");
       });
 
       $("#bst").click(function () {
-        tree = makeTree("bst", 700, 600, "#canvas");
+        tree = makeTree("bst", w, h, "#canvas");
       });
 
       $("#ins-text").keydown(function (event) {
