@@ -32,7 +32,6 @@
             <li class="active"><a href=".">ring</a></li>
             <li><a href="../trees">trees</a></li>
             <li><a href="../about">about</a></li>
-            <li><a href="../contact">contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -40,11 +39,12 @@
 
     <div class="container">
       <div class="row">
-        <p class="lead">Ring is a my effort at building a language from scratch. Right now it does arithmetic and variable assignment. You can play with it in the box below. <a href="https://github.com/pierce-m/ring">Here's the code</a>.
+        <p class="lead">Ring is a my effort at building a language from scratch. Right now it does arithmetic and variable assignment. You can play with it in the box below using the grammar to the right. <a href="https://github.com/pierce-m/ring">Here's the code</a>.
         </p>
 
     <div class="container">
       <div class="row">
+
         <div class="col-xs-5">
           <div id="input">
             <h3>Input</h3>
@@ -71,9 +71,31 @@
     <script src="../dist/js/bootstrap.min.js"></script>
 
     <script>
+    var urlcodes = {
+        "+": "%2B",
+        "*": "%2A",
+        "/": "%2F",
+        "-": "%2D"
+    };
+
+    var request = new XMLHttpRequest();
+    request.onload = function () {
+        $("#out").html(request.responseText);
+    };
+
     $("#go").click(function () {
-        var program = $("#interpreter").val();
-        $("#out").html("The backend server doesn't work yet sorry!");
+        request.open("POST", "http://10.0.0.99:9090/ring/", true);
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        var program = "program=";
+        var text = $("#interpreter").val();
+        for (var i in text) {
+            if (urlcodes.hasOwnProperty(text[i])) {
+                program += urlcodes[text[i]];
+            } else {
+                program += text[i];
+            }
+        }
+        request.send(program + "\n");
     });
     </script>
   </body>
