@@ -65,7 +65,8 @@ function makeTree(type, w, h, canvas) {
     svg = d3.select(canvas)
               .append("svg")
               .attr("width", w)
-              .attr("height", h);
+              .attr("height", h)
+              .attr("class", "scroll-svg");
   }
 
   tree.prototype.insert = function (val) {
